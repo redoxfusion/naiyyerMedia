@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
@@ -11,59 +11,100 @@ import ScrollingText from "@/components/ScrollingTestimonials";
 import SocialMediaTiles from "@/components/SocialMediaTiles";
 import Pitch from "@/components/Pitch";
 
-
 // Initialize Outfit font with weight 700
 const outfit = Outfit({
   subsets: ["latin"],
   weight: "700",
 });
+
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
+  const [isMobile, setIsMobile] = useState(false);
+  const targetPosition = useRef({ x: 0, y: 0 }); // Store the target position for smooth movement
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setScreenSize({ width: window.innerWidth, height: window.innerHeight });
-
-      const handleResize = () => {
-        setScreenSize({ width: window.innerWidth, height: window.innerHeight });
+      const updateScreenSize = () => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        setScreenSize({ width, height });
+        setIsMobile(width < 768); // Consider mobile if width is less than 768px
       };
 
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
+      updateScreenSize(); // Initial check
+      window.addEventListener("resize", updateScreenSize);
+      return () => window.removeEventListener("resize", updateScreenSize);
     }
   }, []);
 
+  // Auto-move effect for mobile with random positions
+  useEffect(() => {
+    if (isMobile) {
+      let animationFrame;
+
+      // Function to generate a new random target position within screen bounds
+      const getRandomPosition = () => {
+        const padding = 50; // Keep the position away from the edges
+        const x = padding + Math.random() * (screenSize.width - 2 * padding);
+        const y = padding + Math.random() * (screenSize.height - 2 * padding);
+        return { x, y };
+      };
+
+      // Set initial target position
+      targetPosition.current = getRandomPosition();
+
+      const animate = () => {
+        setMousePosition((prev) => {
+          // Smoothly interpolate toward the target position
+          const speed = 0.01; // Adjust speed of movement (0 to 1, lower = slower)
+          const newX = prev.x + (targetPosition.current.x - prev.x) * speed;
+          const newY = prev.y + (targetPosition.current.y - prev.y) * speed;
+
+          // Check if the position is close enough to the target
+          const distance = Math.sqrt(
+            Math.pow(targetPosition.current.x - newX, 2) +
+            Math.pow(targetPosition.current.y - newY, 2)
+          );
+
+          // If close to the target, set a new random target
+          if (distance < 5) {
+            targetPosition.current = getRandomPosition();
+          }
+
+          return { x: newX, y: newY };
+        });
+
+        // Request the next frame
+        animationFrame = requestAnimationFrame(animate);
+      };
+
+      animationFrame = requestAnimationFrame(animate);
+
+      // Cleanup on unmount
+      return () => cancelAnimationFrame(animationFrame);
+    }
+  }, [isMobile, screenSize]);
+
   const handleMouseMove = (e) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
+    if (!isMobile) {
+      // Only update mouse position on desktop
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    }
   };
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % sliderVideos.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex(
-      (prev) => (prev - 1 + sliderVideos.length) % sliderVideos.length
-    );
-  };
-
-  // Add this near the top of your component where other useRefs are defined
   const sectionRefs = useRef([
     useRef(null), // First section (hero)
     useRef(null), // Second section (testimonials)
     useRef(null), // Third section (video gallery)
   ]);
 
-  // Then modify the scrollToNextSection function to:
   const scrollToNextSection = () => {
-    // Scroll to the testimonials section (index 1)
     if (sectionRefs.current[1] && sectionRefs.current[1].current) {
       sectionRefs.current[1].current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   return (
     <div className="w-full min-h-screen bg-black flex flex-col items-center justify-center relative overflow-hidden">
       {/* Hero Section with Grid Background */}
@@ -75,14 +116,14 @@ export default function Home() {
         {/* Grid Background Image */}
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <Image
-            src="/grid.png" // Update this path to your actual grid image
+            src="/grid.png"
             alt="Grid Background"
             fill
             className="object-cover"
             priority
           />
 
-          {/* Black mask that reveals background on hover */}
+          {/* Black mask that reveals background */}
           <div
             className="absolute top-0 left-0 w-full h-full bg-black"
             style={{
@@ -92,6 +133,7 @@ export default function Home() {
           ></div>
         </div>
 
+        {/* Crosshair and coordinates (visible on both mobile and desktop) */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
           <div
             className="absolute bg-red-600/50 h-[1px] w-full flex items-center"
@@ -131,7 +173,7 @@ export default function Home() {
               top: `${mousePosition.y + 10}px`,
             }}
           >
-            X: {mousePosition.x}, Y: {mousePosition.y}
+            X: {Math.round(mousePosition.x)}, Y: {Math.round(mousePosition.y)}
           </div>
         </div>
 
@@ -153,47 +195,49 @@ export default function Home() {
         <motion.button
           className="absolute bottom-10 flex flex-col items-center text-white z-10"
           onClick={scrollToNextSection}
-          initial={{ opacity: 0, y: 20, scale: 0.8 }} // Start: hidden, below, and scaled down
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
           animate={{
-            opacity: 1, // Fade in
-            y: [0, 10, 0], // Bounce up and down
-            scale: [1, 1.05, 1], // Subtle scale pulse
+            opacity: 1,
+            y: [0, 10, 0],
+            scale: [1, 1.05, 1],
           }}
           transition={{
-            opacity: { duration: 0.5, ease: "easeOut" }, // Fade-in on load
-            y: { repeat: Infinity, duration: 1.2, ease: "easeInOut" }, // Bounce loop
-            scale: { repeat: Infinity, duration: 1.2, ease: "easeInOut" }, // Scale loop
+            opacity: { duration: 0.5, ease: "easeOut" },
+            y: { repeat: Infinity, duration: 1.2, ease: "easeInOut" },
+            scale: { repeat: Infinity, duration: 1.2, ease: "easeInOut" },
           }}
           whileHover={{
-            scale: 1.1, // Scale up on hover (matches existing hover:scale-110)
-            transition: { duration: 0.3, ease: "easeInOut" }, // Smooth hover transition
+            scale: 1.1,
+            transition: { duration: 0.3, ease: "easeInOut" },
           }}
-          whileTap={{ scale: 0.95 }} // Scale down slightly when clicked
+          whileTap={{ scale: 0.95 }}
         >
           <ChevronDown size={32} className="text-white opacity-80" />
         </motion.button>
       </section>
 
-      {/* Testimonials Section - ADDED THIS SECTION AFTER HERO */}
+      {/* Testimonials Section */}
       <section ref={sectionRefs.current[1]}>
-      <ScrollingText text="TESTIMONIALS" />
+        <ScrollingText text="TESTIMONIALS" />
       </section>
 
       {/* Video Slider Section */}
       <section ref={sectionRefs.current[2]}>
         <FramerMotionVideoGallery />
       </section>
-      {/* Testimonials Section - ADDED THIS SECTION AFTER HERO */}
-      <section ref={sectionRefs.current[1]}>
-      <ScrollingText text="Philosophy" />
-      </section>
-      {/* Pitch */}
+
+      {/* Philosophy Section */}
       <section>
-        <Pitch/>
+        <ScrollingText text="PHILOSOPHY" />
       </section>
 
-      {/* Logos Section */}
-      <section className="w-full bg-black py-10 flex justify-center items-center overflow-hidden">
+      {/* Pitch */}
+      <section>
+        <Pitch />
+      </section>
+
+        {/* Logos Section */}
+        <section className="w-full bg-black py-10 flex justify-center items-center overflow-hidden">
         <div className="overflow-hidden w-11/12 max-w-screen-xl relative">
           <div className="flex whitespace-nowrap animate-marquee">
             <div className="flex-shrink-0 mx-5">

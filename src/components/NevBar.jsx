@@ -19,11 +19,11 @@ export default function Navbar() {
   // Animation variants
   const logoVariants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   const navItemVariants = {
@@ -31,77 +31,72 @@ export default function Navbar() {
     visible: (custom) => ({
       opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         delay: 0.1 * custom,
-        duration: 0.4
-      }
-    })
+        duration: 0.4,
+      },
+    }),
   };
 
   const buttonVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
-      transition: { 
+      transition: {
         delay: 0.5,
         duration: 0.3,
         type: "spring",
-        stiffness: 200
-      }
+        stiffness: 200,
+      },
     },
-    hover: { 
+    hover: {
       scale: 1.05,
       backgroundColor: "#4B5563", // gray-600
-      transition: { duration: 0.2 }
+      transition: { duration: 0.2 },
     },
-    tap: { scale: 0.95 }
+    tap: { scale: 0.95 },
   };
 
   const mobileMenuVariants = {
     hidden: { opacity: 0, height: 0 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       height: "auto",
-      transition: { 
+      transition: {
         duration: 0.3,
         when: "beforeChildren",
-        staggerChildren: 0.1
-      }
+        staggerChildren: 0.1,
+      },
     },
     exit: {
       opacity: 0,
       height: 0,
-      transition: { 
+      transition: {
         duration: 0.2,
         when: "afterChildren",
         staggerChildren: 0.05,
-        staggerDirection: -1
-      }
-    }
+        staggerDirection: -1,
+      },
+    },
   };
 
   const mobileItemVariants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
-      transition: { duration: 0.2 }
+      transition: { duration: 0.2 },
     },
-    exit: { 
-      opacity: 0, 
+    exit: {
+      opacity: 0,
       x: -20,
-      transition: { duration: 0.2 }
-    }
+      transition: { duration: 0.2 },
+    },
   };
 
   return (
-    <motion.nav 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-      className="bg-gray-900 bg-opacity-90 shadow-md fixed w-full top-0 z-20 py-2"
-    >
+    <div className="bg-gray-900 bg-opacity-90 shadow-md fixed w-full top-0 z-20 py-2">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center h-14">
           {/* Logo - positioned on extreme left */}
@@ -133,8 +128,8 @@ export default function Navbar() {
                 animate="visible"
                 whileHover={{ y: -2 }}
               >
-                <Link 
-                  href={item === "Home" ? "/" : `/${item.toLowerCase()}`} 
+                <Link
+                  href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
                   className={`text-lg text-gray-100 hover:text-gray-400 transition duration-300 font-extralight ${outfit.className}`}
                 >
                   {item}
@@ -144,7 +139,7 @@ export default function Navbar() {
           </div>
 
           {/* Blended "Get in Touch" Button */}
-          <motion.div 
+          <motion.div
             className="hidden md:flex"
             variants={buttonVariants}
             initial="hidden"
@@ -161,7 +156,7 @@ export default function Navbar() {
           </motion.div>
 
           {/* Hamburger Button (Mobile) */}
-          <motion.div 
+          <motion.div
             className="md:hidden ml-auto" // This pushes it to the right on mobile
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -180,9 +175,19 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
               >
                 {isOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
                 )}
               </svg>
             </motion.button>
@@ -201,10 +206,7 @@ export default function Navbar() {
             >
               <motion.div className="px-2 pt-2 pb-3 space-y-2">
                 {["Home", "Services", "About", "Contact"].map((item) => (
-                  <motion.div
-                    key={item}
-                    variants={mobileItemVariants}
-                  >
+                  <motion.div key={item} variants={mobileItemVariants}>
                     <Link
                       href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
                       className={`block text-lg text-gray-100 hover:text-gray-300 px-3 py-2 font-extralight transition duration-300 ${outfit.className}`}
@@ -228,6 +230,7 @@ export default function Navbar() {
           )}
         </AnimatePresence>
       </div>
-    </motion.nav>
+    </div>
   );
 }
+
