@@ -100,7 +100,7 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-      className="bg-gray-900 bg-opacity-90 shadow-md fixed w-full top-0 z-10 py-2"
+      className="bg-gray-900 bg-opacity-90 shadow-md fixed w-full top-0 z-20 py-2"
     >
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center h-14">
