@@ -1,7 +1,7 @@
 import React from 'react'
 import { Bebas_Neue } from "next/font/google"; 
-export default function page() {
+export default function Services() {
   return (
-    <div>page</div>
+    <div>Services</div>
   )
 }

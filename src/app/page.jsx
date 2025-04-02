@@ -11,7 +11,7 @@ import ScrollingText from "@/components/ScrollingTestimonials";
 import SocialMediaTiles from "@/components/SocialMediaTiles";
 import Pitch from "@/components/Pitch";
 
-// Initialize Outfit font with weight 700
+// Initialize Outfit font
 const outfit = Outfit({
   subsets: ["latin"],
   weight: "700",
