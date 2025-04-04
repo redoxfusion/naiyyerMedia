@@ -10,7 +10,7 @@ import FramerMotionVideoGallery from "@/components/FramerMotionVideoGallery";
 import ScrollingText from "@/components/ScrollingTestimonials";
 import SocialMediaTiles from "@/components/SocialMediaTiles";
 import Pitch from "@/components/Pitch";
-import { FaWhatsapp } from "react-icons/fa"
+import { FaWhatsapp } from "react-icons/fa";
 // Initialize Outfit font
 const outfit = Outfit({
   subsets: ["latin"],
@@ -123,17 +123,19 @@ export default function Home() {
             priority
           />
 
-          {/* Black mask that reveals background */}
+          {/* Black mask that reveals background - FIXED GRADIENT VALUES */}
           <div
             className="absolute top-0 left-0 w-full h-full bg-black"
             style={{
-              WebkitMaskImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, transparent 50px, rgba(0, 0, 0, 0.9) 30px)`,
-              maskImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, transparent 50px, rgba(0, 0, 0, 0.9) 30px)`,
+              WebkitMaskImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, transparent 150px, rgba(0, 0, 0, 0.9) 300px)`,
+              maskImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, transparent 150px, rgba(0, 0, 0, 0.9) 300px)`,
             }}
           ></div>
         </div>
+
+        {/* WhatsApp button */}
         <a
-          href="https://wa.me/+923006163603" // Replace with your WhatsApp number
+          href="https://wa.me/+923006163603"
           target="_blank"
           rel="noopener noreferrer"
           className="fixed right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition"
@@ -148,47 +150,19 @@ export default function Home() {
         {/* Crosshair and coordinates (visible on both mobile and desktop) */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
           <div
-            className="absolute bg-red-600/50 h-[1px] w-full flex items-center"
-            style={{ top: `${mousePosition.y}px` }}
-          >
-            {Array.from({ length: screenSize.width / 50 }).map((_, i) => (
-              <div
-                key={`h-scale-${i}`}
-                className="h-2 w-[1px] bg-red-600"
-                style={{ marginLeft: "50px" }}
-              ></div>
-            ))}
-          </div>
-          <div
-            className="absolute bg-red-600/50 w-[1px] h-full flex flex-col items-center"
-            style={{ left: `${mousePosition.x}px` }}
-          >
-            {Array.from({ length: screenSize.height / 50 }).map((_, i) => (
-              <div
-                key={`v-scale-${i}`}
-                className="w-2 h-[1px] bg-red-600"
-                style={{ marginTop: "50px" }}
-              ></div>
-            ))}
-          </div>
-          <div
-            className="absolute w-2 h-2 bg-red-600 rounded-full"
+            className="absolute w-12 h-12 rounded-full shadow-lg"
             style={{
-              left: `${mousePosition.x - 1}px`,
-              top: `${mousePosition.y - 1}px`,
+              left: `${mousePosition.x - 6}px`,
+              top: `${mousePosition.y - 6}px`,
+              background:
+                "radial-gradient(circle, rgba(255, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%)",
+              boxShadow: "0 0 15px 5px rgba(255, 0, 0, 0.3)",
             }}
           ></div>
-          <div
-            className="absolute bg-black text-white text-xs px-2 py-1 rounded-md"
-            style={{
-              left: `${mousePosition.x + 10}px`,
-              top: `${mousePosition.y + 10}px`,
-            }}
-          >
-            X: {Math.round(mousePosition.x)}, Y: {Math.round(mousePosition.y)}
-          </div>
+          
         </div>
 
+        {/* Logo */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -204,6 +178,7 @@ export default function Home() {
           />
         </motion.div>
 
+        {/* Scroll down button */}
         <motion.button
           className="absolute bottom-10 flex flex-col items-center text-white z-10"
           onClick={scrollToNextSection}
