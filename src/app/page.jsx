@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import FramerMotionVideoGallery from "@/components/FramerMotionVideoGallery";
 import ScrollingText from "@/components/ScrollingTestimonials";
 import SocialMediaTiles from "@/components/SocialMediaTiles";
 import Pitch from "@/components/Pitch";
-
+import { FaWhatsapp } from "react-icons/fa"
 // Initialize Outfit font
 const outfit = Outfit({
   subsets: ["latin"],
@@ -64,7 +64,7 @@ export default function Home() {
           // Check if the position is close enough to the target
           const distance = Math.sqrt(
             Math.pow(targetPosition.current.x - newX, 2) +
-            Math.pow(targetPosition.current.y - newY, 2)
+              Math.pow(targetPosition.current.y - newY, 2)
           );
 
           // If close to the target, set a new random target
@@ -132,6 +132,18 @@ export default function Home() {
             }}
           ></div>
         </div>
+        <a
+          href="https://wa.me/+923006163603" // Replace with your WhatsApp number
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition"
+          style={{
+            bottom: 20 + "px", // 20px above the footer
+            zIndex: 9999, // Ensure it's above other elements
+          }}
+        >
+          <FaWhatsapp size={24} />
+        </a>
 
         {/* Crosshair and coordinates (visible on both mobile and desktop) */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
@@ -236,8 +248,8 @@ export default function Home() {
         <Pitch />
       </section>
 
-        {/* Logos Section */}
-        <section className="w-full bg-black py-10 flex justify-center items-center overflow-hidden">
+      {/* Logos Section */}
+      <section className="w-full bg-black py-10 flex justify-center items-center overflow-hidden">
         <div className="overflow-hidden w-11/12 max-w-screen-xl relative">
           <div className="flex whitespace-nowrap animate-marquee">
             <div className="flex-shrink-0 mx-5">
