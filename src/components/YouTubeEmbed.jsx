@@ -5,11 +5,14 @@ const YouTubeEmbed = () => {
     height: "390",
     width: "640",
     playerVars: {
-      autoplay: 1,
     },
   };
 
-  return <YouTube videoId="https://www.youtube.com/watch?v=aCQSKMG7-1M" opts={videoOptions} />;
+  // Extract video ID from the URL
+  const videoId = "aCQSKMG7-1M"; // You can extract this from the YouTube URL
+
+  return <YouTube videoId={videoId} opts={videoOptions} />;
 };
 
 export default YouTubeEmbed;
+
