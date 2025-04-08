@@ -2,6 +2,8 @@
 
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
+
 import React from 'react';
 
 const CameraModel = () => {
@@ -11,7 +13,7 @@ const CameraModel = () => {
 
 const Pitch = () => {
   return (
-    <section className="relative w-screen min-h-screen flex items-center justify-center bg-gray-700 text-white">
+    <section className="relative w-screen min-h-screen flex items-center justify-center bg-gray-950 text-white">
       <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 md:px-12 gap-10">
         
         {/* Left Side: Text and Buttons */}
@@ -32,15 +34,20 @@ const Pitch = () => {
           </div>
         </div>
 
-        {/* Right Side: 3D Camera Model */}
+
         <div className="md:w-1/2 flex justify-center h-[400px]">
-          <Canvas camera={{ position: [0, 0, 10], fov: 50 }} className="rounded-xl ">
-            <ambientLight intensity={0.5} />
-            <directionalLight position={[2, 2, 2]} intensity={1} />
-            <CameraModel />
-            <OrbitControls enableZoom={false} />
-          </Canvas>
-        </div>
+  <Canvas camera={{ position: [0, 0, 10], fov: 50 }} className="rounded-xl">
+    <ambientLight intensity={0.5} />
+    <directionalLight position={[2, 2, 2]} intensity={1} />
+    <CameraModel />
+    <OrbitControls enableZoom={false} />
+    
+    {/* Glow Effect */}
+    <EffectComposer>
+      <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} intensity={1.5} />
+    </EffectComposer>
+  </Canvas>
+</div>
       </div>
     </section>
   );

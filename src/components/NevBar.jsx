@@ -32,7 +32,11 @@ export default function Navbar() {
     visible: {
       opacity: 1,
       height: "auto",
-      transition: { duration: 0.3, when: "beforeChildren", staggerChildren: 0.1 },
+      transition: {
+        duration: 0.3,
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+      },
     },
     exit: { opacity: 0, height: 0, transition: { duration: 0.2 } },
   };
@@ -55,7 +59,13 @@ export default function Navbar() {
           {/* Logo */}
           <div className="mr-auto">
             <Link href="/">
-              <Image src="/LogoV2.png" alt="Logo" width={40} height={40} priority />
+              <Image
+                src="/LogoV2.png"
+                alt="Logo"
+                width={40}
+                height={40}
+                priority
+              />
             </Link>
           </div>
 
@@ -65,7 +75,11 @@ export default function Navbar() {
               <Link
                 key={item}
                 href={
-                  item === "Home" ? "/" : item === "Our Services" ? "/ourServices" : `/${item.toLowerCase()}`
+                  item === "Home"
+                    ? "/"
+                    : item === "Our Services"
+                    ? "/ourServices"
+                    : `/${item.toLowerCase()}`
                 }
                 className={`text-lg text-gray-100 hover:text-gray-400 transition duration-300 font-extralight ${outfit.className}`}
               >
@@ -92,11 +106,26 @@ export default function Navbar() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="h-7 w-7"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 {isOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
                 )}
               </svg>
             </motion.button>
@@ -106,14 +135,26 @@ export default function Navbar() {
         {/* Mobile Menu with AnimatePresence for smooth mounting/unmounting */}
         <AnimatePresence>
           {isOpen && (
-            <motion.div className="md:hidden" variants={mobileMenuVariants} initial="hidden" animate="visible" exit="exit">
+            <motion.div
+              className="md:hidden"
+              variants={mobileMenuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
               <motion.div className="px-2 pt-2 pb-3 space-y-2">
-                {["Home", "Services", "About", "Contact"].map((item) => (
+                {["Home", "Our Services", "About", "Contact"].map((item) => (
                   <motion.div key={item} variants={mobileItemVariants}>
                     <Link
-                      href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                      className={`block text-lg text-gray-100 hover:text-gray-300 px-3 py-2 font-extralight transition duration-300 ${outfit.className}`}
-                      onClick={() => setIsOpen(false)}
+                      key={item}
+                      href={
+                        item === "Home"
+                          ? "/"
+                          : item === "Our Services"
+                          ? "/ourServices"
+                          : `/${item.toLowerCase()}`
+                      }
+                      className={`text-lg text-gray-100 hover:text-gray-400 transition duration-300 font-extralight ${outfit.className}`}
                     >
                       {item}
                     </Link>

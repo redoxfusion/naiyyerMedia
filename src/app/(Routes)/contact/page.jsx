@@ -1,18 +1,13 @@
 import React from "react";
 import { Outfit } from "next/font/google";
 import { FaWhatsapp } from "react-icons/fa"
-const outfit = Outfit({
-  weight: ["400", "600"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export default function Contact() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6 bg-black text-white pt-20">
       {/* Contact Title */}
       <h1
-        className={`text-3xl md:text-4xl font-bold text-center mt-16 md:mt-20 ${outfit.className}`}
+        className={`text-3xl md:text-4xl font-bold text-center mt-16 md:mt-20 }`}
       >
         Get in Touch
       </h1>
@@ -31,7 +26,7 @@ export default function Contact() {
 
       {/* Description */}
       <p
-        className={`text-base md:text-lg text-gray-300 text-center max-w-2xl mt-4 ${outfit.className}`}
+        className={`text-base md:text-lg text-gray-300 text-center max-w-2xl mt-4 `}
       >
         We’d love to hear from you! Whether you have questions, want to
         collaborate, or just want to say hello, feel free to fill out the form

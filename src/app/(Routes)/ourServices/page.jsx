@@ -1,64 +1,114 @@
-import React from "react";
-import { Bebas_Neue } from "next/font/google";
-import { Card, CardContent } from "@/components/card";
-import { Button } from "@/components/button";
-import { Separator } from "@/components/separator";
+'use client';
 
-export default function Services() {
-  const portfolioItems = [
-    {
-      id: 1,
-      title: "Branding for EcoTech",
-      category: "Branding",
-      image:
-        "https://c.animaapp.com/Rk55Ds6J/img/a-modern-logo-design-with-green-leaves-and-a-sleek-font-represen@2x.png",
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+
+const services = [
+  {
+    title: 'Video Production',
+    description:
+      'High-quality video production including concept development, filming, editing, and post-production for all platforms.',
+    points: [
+      'TV & Digital Commercials',
+      'Animations - 2D & 3D Content',
+      'Post-Production Services',
+      'Scripting & Direction',
+    ],
+    image: '/production.png',
+  },
+  {
+    title: 'Design & Branding',
+    description:
+      'Elevate your brand identity through strategic design, logos, motion graphics, and brand guidelines.',
+    points: [
+      'Logo & Visual Identity',
+      'Brand Guidelines',
+      'Motion Design',
+      'Packaging Design',
+    ],
+    image: '/marketing.png',
+  },
+  {
+    title: 'Marketing & Campaigns',
+    description:
+      'Full-stack marketing support from campaign ideation and influencer outreach to performance marketing.',
+    points: [
+      'Social Media Strategy',
+      'Influencer Marketing',
+      'Paid Media Campaigns',
+      'Performance Reporting',
+    ],
+    image: '/placeholder 2.png',
+  },
+];
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.2,
+      duration: 0.6,
     },
-    {
-      id: 2,
-      title: "Social Media Campaign for FreshBrew",
-      category: "Social Media",
-      image:
-        "https://c.animaapp.com/Rk55Ds6J/img/a-group-of-friends-sitting-at-a-rustic-wooden-table-in-a-cozy-ca@2x.png",
-    },
-    {
-      id: 3,
-      title: "Digital Marketing for TechWave",
-      category: "Digital Marketing",
-      image:
-        "https://c.animaapp.com/Rk55Ds6J/img/a-group-of-professionals-collaborating-around-a-table-with-lapto@2x.png",
-    },
-    {
-      id: 4,
-      title: "Website Design for Artify",
-      category: "Design",
-      image:
-        "https://c.animaapp.com/Rk55Ds6J/img/a-modern-workspace-with-a-computer-displaying-a-colorful-website@2x.png",
-    },
-  ];
+  }),
+};
+
+export default function ServicesPage() {
   return (
-    <div className="flex flex-col min-h-screen items-start px-12 py-0 relative bg-gray-900">
-      <header className="flex items-center justify-between px-0 py-4 w-full bg-gray-900">
-      </header>
+    <div className="bg-gray-900 text-white min-h-screen py-20 px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeIn}
+        className="max-w-4xl mx-auto text-center mb-16"
+      >
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          Our Services
+        </h1>
+        <p className="text-gray-400 max-w-2xl mx-auto">
+          We bring your brand's vision to life through content, design, and marketing, helping you scale faster and smarter.
+        </p>
+      </motion.div>
 
-      <main className="w-full px-0 py-12">
-        <h2 className="text-center text-5xl text-white font-bold pt-12 ">Our Work</h2>
-        <Separator className="w-full my-4" />
-
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 py-12">
-          {portfolioItems.map((item) => (
-            <Card key={item.id} className="shadow-md">
-              <div
-                className="h-48 bg-cover bg-center"
-                style={{ backgroundImage: `url(${item.image})` }}
+      <div className="space-y-24 max-w-6xl mx-auto">
+        {services.map((service, idx) => (
+          <motion.div
+            key={service.title}
+            custom={idx + 1}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeIn}
+            className={`flex flex-col md:flex-row items-center gap-10 ${
+              idx % 2 === 1 ? 'md:flex-row-reverse' : ''
+            }`}
+          >
+            <div className="md:w-1/2">
+              <Image
+                src={service.image}
+                alt={service.title}
+                width={600}
+                height={400}
+                className="rounded-xl shadow-lg object-cover w-full"
               />
-              <CardContent className="p-4">
-                <h3 className="text-xl font-semibold">{item.title}</h3>
-                <p className="text-gray-500">{item.category}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </main>
+            </div>
+            <div className="md:w-1/2">
+              <h3 className="text-3xl font-semibold mb-4">{service.title}</h3>
+              <p className="text-gray-400 mb-4">{service.description}</p>
+              <ul className="list-disc list-inside space-y-1 text-gray-300">
+                {service.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+              <button className="mt-6 inline-block bg-red-600 hover:bg-red-500 transition px-6 py-2 rounded-full text-white font-medium">
+                View Work
+              </button>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }
