@@ -92,6 +92,9 @@ export default function ServicesPage() {
                 width={600}
                 height={400}
                 className="rounded-xl shadow-lg object-cover w-full"
+                decoding="async"
+            loading="lazy"
+            data-nimg="1"
               />
             </div>
             <div className="md:w-1/2">

@@ -109,6 +109,9 @@ export default function AboutPage() {
           width={200}
           height={200}
           className="rounded-full mx-auto mb-6"
+          decoding="async"
+            loading="lazy"
+            data-nimg="1"
         />
         <h1 className="text-4xl font-bold mb-4">{aboutData.founder.name}</h1>
         <p className="text-gray-400">{aboutData.founder.description}</p>
@@ -129,6 +132,9 @@ export default function AboutPage() {
             width={600}
             height={400}
             className="rounded-xl shadow-lg object-cover w-full"
+            decoding="async"
+            loading="lazy"
+            data-nimg="1"
           />
         </div>
         <div className="md:w-1/2">

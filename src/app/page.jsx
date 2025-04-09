@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 import { Outfit } from "next/font/google";
 import FramerMotionVideoGallery from "@/components/FramerMotionVideoGallery";
 import ScrollingText from "@/components/ScrollingTestimonials";
-import SocialMediaTiles from "@/components/SocialMediaTiles";
 import Pitch from "@/components/Pitch";
 import { FaWhatsapp } from "react-icons/fa";
 // Initialize Outfit font
@@ -175,6 +174,9 @@ export default function Home() {
             width={600}
             height={600}
             className="w-[300px] sm:w-[275px] md:w-[325px] lg:w-[400px] h-auto"
+            decoding="async"
+            loading="lazy"
+            data-nimg="1"
           />
         </motion.div>
 
