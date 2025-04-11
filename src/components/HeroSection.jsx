@@ -135,7 +135,7 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
   className="absolute top-0 left-0 w-full h-full"
   style={{
     backgroundColor: '#181818',
-    WebkitMaskImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, transparent 150px, #181818 300px)`,
+    WebkitMaskImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, transparent 150px, #181818 250px)`,
     //maskImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, transparent 150px, #181818 300px)`,
   }}
 />
@@ -149,11 +149,13 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
           transform: 'translate(-50%, -50%)'
         }}>
           <Image
-            src="/gradient ball NM.png"
+            src="/gradient ball.png"
             alt="Custom cursor"
-            width={120}
-            height={120}
-            className="w-300 h-300"
+            width={350}
+            height={350}
+            decoding="async"
+            priority
+            className="w-600 h-600"
           />
         </div>
       )}
