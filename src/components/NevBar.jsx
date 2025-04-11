@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Outfit } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,6 +15,26 @@ const outfit = Outfit({
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Handle scroll event to detect when page is scrolled
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+    
+    // Initial check
+    handleScroll();
+    
+    // Clean up
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrolled]);
 
   // Navbar Animation (Appears from Above)
   const navbarVariants = {
@@ -49,7 +69,9 @@ export default function Navbar() {
 
   return (
     <motion.div
-      className="bg-gray-900 bg-opacity-90 shadow-md fixed w-full top-0 z-20 py-2"
+      className={`fixed w-full top-0 z-20 py-2 transition-colors duration-300 ${
+        scrolled ? "bg-[#181818] shadow-md" : "bg-transparent"
+      }`}
       initial="hidden"
       animate="visible"
       variants={navbarVariants}
@@ -92,7 +114,7 @@ export default function Navbar() {
           <div className="hidden md:flex">
             <Link
               href="/contact"
-              className={`text-lg bg-gray-700 text-gray-200 px-5 py-2 rounded-md transition duration-300 font-extralight hover:bg-gray-600 hover:text-white active:scale-95 shadow-md ${outfit.className}`}
+              className={`text-lg ${scrolled ? "bg-gray-700" : "bg-gray-700 bg-opacity-60 backdrop-blur-sm"} text-gray-200 px-5 py-2 rounded-md transition duration-300 font-extralight hover:bg-gray-600 hover:text-white active:scale-95 shadow-md ${outfit.className}`}
             >
               Get in Touch
             </Link>
@@ -142,11 +164,10 @@ export default function Navbar() {
               animate="visible"
               exit="exit"
             >
-              <motion.div className="px-2 pt-2 pb-3 space-y-2">
+              <motion.div className={`px-2 pt-2 pb-3 space-y-2 ${scrolled ? "" : "bg-gray-900 bg-opacity-90 rounded-lg mt-2"}`}>
                 {["Home", "Our Services", "About", "Contact"].map((item) => (
                   <motion.div key={item} variants={mobileItemVariants}>
                     <Link
-                      key={item}
                       href={
                         item === "Home"
                           ? "/"
@@ -154,7 +175,8 @@ export default function Navbar() {
                           ? "/ourServices"
                           : `/${item.toLowerCase()}`
                       }
-                      className={`text-lg text-gray-100 hover:text-gray-400 transition duration-300 font-extralight ${outfit.className}`}
+                      className={`block py-1 text-lg text-gray-100 hover:text-gray-400 transition duration-300 font-extralight ${outfit.className}`}
+                      onClick={() => setIsOpen(false)}
                     >
                       {item}
                     </Link>
@@ -163,7 +185,7 @@ export default function Navbar() {
                 <motion.div variants={mobileItemVariants}>
                   <Link
                     href="/contact"
-                    className="block text-lg bg-gray-700 text-gray-200 px-5 py-2 rounded-md hover:bg-gray-600 hover:text-white transition duration-300"
+                    className={`block text-lg ${scrolled ? "bg-gray-700" : "bg-gray-700 bg-opacity-70"} text-gray-200 px-5 py-2 rounded-md hover:bg-gray-600 hover:text-white transition duration-300`}
                     onClick={() => setIsOpen(false)}
                   >
                     Get in Touch
