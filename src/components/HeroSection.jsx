@@ -168,7 +168,6 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
         target="_blank"
         rel="noopener noreferrer"
         decoding="async"
-        priority
         data-nimg="1"
         className="fixed right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition"
         style={{
