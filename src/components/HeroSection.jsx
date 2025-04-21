@@ -140,8 +140,6 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
   }}
 />
       </div>
-
-      {/* Custom cursor image - only shown when in section */}
       {isInSection && (
         <div className="absolute pointer-events-none z-50" style={{
           left: `${mousePosition.x}px`,
