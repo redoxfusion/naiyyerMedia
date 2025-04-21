@@ -10,8 +10,7 @@ export default function RootLayout({ children }) {
        <NevBar />
         {children}
        <Footer />
-        <SpeedInsights>
-        </SpeedInsights>
+        <SpeedInsights/>
       </body>
     </html>
   );
