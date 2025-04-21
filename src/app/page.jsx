@@ -1,11 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
-import { motion } from "framer-motion";
 import { Outfit } from "next/font/google";
-import FramerMotionVideoGallery from "@/components/FramerMotionVideoGallery";
 import ScrollingText from "@/components/ScrollingTestimonials";
 import Pitch from "@/components/Pitch";
 import VideoSlider from '@/components/VideoSlider';
