@@ -6,7 +6,9 @@ export default function RootLayout({ children }) {
   return (
     
     <html lang="en">
-      <body>
+      <title>Neiyyer Media</title>
+      <link rel="icon" href="/favicon.ico"/> 
+       <body>
        <NevBar />
         {children}
        <Footer />
