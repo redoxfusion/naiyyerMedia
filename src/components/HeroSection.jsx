@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import { ChevronDown } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { FaWhatsapp } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import { ChevronDown } from "lucide-react";
+import { motion } from "framer-motion";
+import { FaWhatsapp } from "react-icons/fa";
 
 const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
   const [mousePosition, setMousePosition] = useState({ x: 600, y: 400 });
@@ -16,7 +16,7 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
 
   // Update screen size on mount and resize
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const updateScreenSize = () => {
         const width = window.innerWidth || 0;
         const height = window.innerHeight || 0;
@@ -25,8 +25,8 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
       };
 
       updateScreenSize();
-      window.addEventListener('resize', updateScreenSize);
-      return () => window.removeEventListener('resize', updateScreenSize);
+      window.addEventListener("resize", updateScreenSize);
+      return () => window.removeEventListener("resize", updateScreenSize);
     }
   }, []);
 
@@ -36,13 +36,13 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
       let animationFrame;
 
       const getRandomPosition = () => {
-        const rect = sectionRef.current?.getBoundingClientRect() || { 
-          width: screenSize.width, 
+        const rect = sectionRef.current?.getBoundingClientRect() || {
+          width: screenSize.width,
           height: screenSize.height,
           left: 0,
-          top: 0
+          top: 0,
         };
-        
+
         const padding = 50;
         const x = padding + Math.random() * (rect.width - 2 * padding);
         const y = padding + Math.random() * (rect.height - 2 * padding);
@@ -98,7 +98,7 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
   // Combine refs
   const combineRefs = (el) => {
     sectionRef.current = el;
-    if (typeof forwardedRef === 'function') {
+    if (typeof forwardedRef === "function") {
       forwardedRef(el);
     } else if (forwardedRef) {
       forwardedRef.current = el;
@@ -122,30 +122,33 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
           className="object-cover"
           priority
         />
-        
+
         {/* Dark gray overlay */}
-        <div 
+        <div
           className="absolute inset-0"
-          style={{ backgroundColor: '#181818', opacity: 0.85 }}
+          style={{ backgroundColor: "#181818", opacity: 0.85 }}
         />
 
         {/* Black mask that reveals background - confined to section */}
         {/* Black mask that reveals background - confined to section */}
-<div
-  className="absolute top-0 left-0 w-full h-full"
-  style={{
-    backgroundColor: '#181818',
-    WebkitMaskImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, transparent 150px, #181818 250px)`,
-    //maskImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, transparent 150px, #181818 300px)`,
-  }}
-/>
+        <div
+          className="absolute top-0 left-0 w-full h-full"
+          style={{
+            backgroundColor: "#181818",
+            WebkitMaskImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, transparent 150px, #181818 250px)`,
+            //maskImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, transparent 150px, #181818 300px)`,
+          }}
+        />
       </div>
       {isInSection && (
-        <div className="absolute pointer-events-none z-50" style={{
-          left: `${mousePosition.x}px`,
-          top: `${mousePosition.y}px`,
-          transform: 'translate(-50%, -50%)'
-        }}>
+        <div
+          className="absolute pointer-events-none z-50"
+          style={{
+            left: `${mousePosition.x}px`,
+            top: `${mousePosition.y}px`,
+            transform: "translate(-50%, -50%)",
+          }}
+        >
           <Image
             src="/gradient ball.png"
             alt="Custom cursor"
@@ -153,6 +156,7 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
             height={350}
             decoding="async"
             priority
+            data-nimg="1"
             className="w-600 h-600"
           />
         </div>
@@ -163,9 +167,12 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
         href="https://wa.me/+923006163603"
         target="_blank"
         rel="noopener noreferrer"
+        decoding="async"
+        priority
+        data-nimg="1"
         className="fixed right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition"
         style={{
-          bottom: '20px',
+          bottom: "20px",
           zIndex: 9999,
         }}
         aria-label="Contact us on WhatsApp"
@@ -185,7 +192,7 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
           alt="Hero Image"
           width={600}
           height={600}
-          className="w-[300px] sm:w-[275px] md:w-[325px] lg:w-[400px] h-auto"
+          className=" w-[300px] sm:w-[275px] md:w-[325px] lg:w-[400px] h-auto"
           decoding="async"
           priority
           data-nimg="1"
@@ -204,13 +211,13 @@ const HeroSection = ({ scrollToNextSection, forwardedRef }) => {
           scale: [1, 1.05, 1],
         }}
         transition={{
-          opacity: { duration: 0.5, ease: 'easeOut' },
-          y: { repeat: Infinity, duration: 1.2, ease: 'easeInOut' },
-          scale: { repeat: Infinity, duration: 1.2, ease: 'easeInOut' },
+          opacity: { duration: 0.5, ease: "easeOut" },
+          y: { repeat: Infinity, duration: 1.2, ease: "easeInOut" },
+          scale: { repeat: Infinity, duration: 1.2, ease: "easeInOut" },
         }}
         whileHover={{
           scale: 1.1,
-          transition: { duration: 0.3, ease: 'easeInOut' },
+          transition: { duration: 0.3, ease: "easeInOut" },
         }}
         whileTap={{ scale: 0.95 }}
         aria-label="Scroll to next section"

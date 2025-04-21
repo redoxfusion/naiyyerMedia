@@ -11,7 +11,7 @@ const YouTubeEmbed = () => {
   // Extract video ID from the URL
   const videoId = "aCQSKMG7-1M"; // You can extract this from the YouTube URL
 
-  return <YouTube videoId={videoId} opts={videoOptions} />;
+  return <YouTube rel="preload" videoId={videoId} opts={videoOptions} />;
 };
 
 export default YouTubeEmbed;
