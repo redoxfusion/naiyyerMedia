@@ -4,14 +4,15 @@ import Footer from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 export default function RootLayout({ children }) {
   return (
-    <SpeedInsights>
+    
     <html lang="en">
       <body>
        <NevBar />
         {children}
        <Footer />
+        <SpeedInsights>
+        </SpeedInsights>
       </body>
     </html>
-    </SpeedInsights>
   );
 }
